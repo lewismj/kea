@@ -1,6 +1,4 @@
 import sbtassembly.AssemblyPlugin.autoImport._
-import com.typesafe.sbt.SbtGhPages.GhPagesKeys._
-import UnidocKeys._
 import com.typesafe.sbt.pgp.PgpKeys._
 
 lazy val commonScalacOptions = Seq(
@@ -86,48 +84,12 @@ lazy val keaSettings = buildSettings ++ commonSettings ++ scoverageSettings
 lazy val kea = project.in(file("."))
   .settings(moduleName := "root")
   .settings(noPublishSettings:_*)
-  .aggregate(docs, tests, core)
+  .aggregate(tests, core)
 
 lazy val core = project.in(file("core"))
   .settings(moduleName := "kea-core")
   .settings(keaSettings:_*)
   .settings(publishSettings:_*)
-
-lazy val docSettings = Seq(
-  autoAPIMappings := true,
-  micrositeName := "kea",
-  micrositeDescription := "Scala validating configuation",
-  micrositeBaseUrl :="/kea",
-  micrositeDocumentationUrl := "/kea/api",
-  micrositeGithubOwner := "lewismj",
-  micrositeGithubRepo := "kea",
-  micrositeHighlightTheme := "atom-one-light",
-  micrositePalette := Map(
-    "brand-primary" -> "#5B5988",
-    "brand-secondary" -> "#292E53",
-    "brand-tertiary" -> "#222749",
-    "gray-dark" -> "#49494B",
-    "gray" -> "#7B7B7E",
-    "gray-light" -> "#E5E5E6",
-    "gray-lighter" -> "#F4F3F4",
-    "white-color" -> "#FFFFFF"),
-  git.remoteRepo := "git@github.com:lewismj/kea.git",
-  includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.yml" | "*.md",
-  ghpagesNoJekyll := false,
-  siteSubdirName in ScalaUnidoc := "api",
-  addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc), siteSubdirName in ScalaUnidoc),
-  unidocProjectFilter in (ScalaUnidoc, unidoc) := inAnyProject -- inProjects(tests)
-)
-
-lazy val docs = project
-    .enablePlugins(MicrositesPlugin)
-    .settings(moduleName := "kea-docs")
-    .settings(unidocSettings: _*)
-    .settings(ghpages.settings)
-    .dependsOn(core)
-    .settings(docSettings:_*)
-    .settings(keaSettings:_*)
-    .settings(noPublishSettings:_*)
 
 lazy val tests = project.in(file("tests"))
   .dependsOn(core)

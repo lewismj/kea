@@ -1,6 +1,7 @@
 package kea
 
-import cats.data.{NonEmptyList, Validated}
+import cats.data.NonEmptyList
+import cats.data.Validated.{Invalid, Valid}
 import cats.syntax.either._
 import com.typesafe.config.Config
 
@@ -56,10 +57,10 @@ object config {
     * @return     a `ValidatedNel[A]`.
     */
   def validated[A](f: => A): ValidatedNel[A] = {
-    Validated.fromEither(Either.catchOnly[Throwable](f) match {
-      case Left(t) => Left(NonEmptyList.of(t))
-      case Right(value) => Right(value)
-    })
+    Either.catchOnly[Throwable](f) match {
+      case Left(t) => Invalid(NonEmptyList.of(t))
+      case Right(v) => Valid(v)
+    }
   }
 
 }

@@ -6,6 +6,6 @@ package object kea {
   type ThrowableNel = NonEmptyList[Throwable]
 
   /** Validated 'A', Invalid items are a Nel of throwable. */
-  type ValidatedNel[A] = Validated[NonEmptyList[Throwable],A]
+  type ValidatedNel[A] = Validated[ThrowableNel,A]
 
 }
