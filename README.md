@@ -3,7 +3,7 @@
 ## Summary
 <p align="left">
 <img src="https://travis-ci.org/lewismj/kea.svg?branch=master"/>
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8c5bd884421f40cf8936511208262be9)](https://www.codacy.com/app/lewismj/kea?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=lewismj/kea&amp;utm_campaign=Badge_Grade)
+<a href="https://www.codacy.com/app/lewismj/kea?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=lewismj/kea&amp;utm_campaign=Badge_Grade"></a>
 </p>
 
 This library provides a type-safe (_validated_),  way to query Typelevel configuration.
