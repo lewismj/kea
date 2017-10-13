@@ -37,8 +37,8 @@ We can now read individual elements, for example,
  
  val config = ConfigFactory.load
 
-  config.as[String]("example.foo.some-string")
-  config.as[Int]("example.foo.some-int")
+ config.as[String]("example.foo.some-string")
+ config.as[Int]("example.foo.some-int")
 ```
 
 These return a `ValidationNel`, see [cats](https://typelevel.org/cats/datatypes/validated.html) for details.
