@@ -26,7 +26,7 @@ example {
   }
 ```
 
-We can now get individual elements as:
+We can now read individual elements, for example,
 
 ```scala
   config.as[String]("example.foo.some-string")
