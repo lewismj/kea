@@ -63,7 +63,7 @@ This allow the composition of config functions as follows:
   }
 ```
 
-Any errors are accumulated as a list of `Throwable`. For example, given:
+Any errors are accumulated as a non empty list of `Throwable`. For example, given:
 
 ```scala
     val f = (config.as[String]("example.foo.some-string") |@|
