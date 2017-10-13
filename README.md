@@ -35,7 +35,7 @@ example {
 }
 ```
 
-We can now read individual elements, for example,
+We can specify the type of each configuration element, for example,
 
 ```scala
  import com.typesafe.config.{Config, ConfigFactory}
