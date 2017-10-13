@@ -1,4 +1,4 @@
-# KEA
+# kea 
 
 ## Summary
 <p align="left">
@@ -48,7 +48,7 @@ We can specify the type of each configuration element, for example,
  config.as[Int]("example.foo.some-int")
 ```
 
-These return a `ValidationNel`, see [cats](https://typelevel.org/cats/datatypes/validated.html) for details.
+These return a `ValidatedNel`, see [cats](https://typelevel.org/cats/datatypes/validated.html) for background details.
 This allow the composition of config functions as follows:
 
 ```scala
