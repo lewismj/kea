@@ -24,6 +24,8 @@ example {
     some-double = 1.1
     some-long = 1234
   }
+  
+}
 ```
 
 We can now read individual elements, for example,
