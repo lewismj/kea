@@ -29,10 +29,18 @@ example {
 We can now read individual elements, for example,
 
 ```scala
+ import com.typesafe.config.{Config, ConfigFactory}
+ import kea.config._
+ import kea.implicits._
+ 
+ val config = ConfigFactory.load
+
   config.as[String]("example.foo.some-string")
+  config.as[Int]("example.foo.some-int")
 ```
 
-These return a `Validation`, so we can compose config funtions as follows:
+These return a `ValidationNel`, see [cats](https://typelevel.org/cats/datatypes/validated.html) for details.
+This allow the composition of config functions as follows:
 
 ```scala
   case class Foo(s: String, i: Int, b: Boolean, d: Double, l: Long)
@@ -46,7 +54,7 @@ These return a `Validation`, so we can compose config funtions as follows:
   }
 ```
 
-Any errors are accumulated as a list of `Throwable`. For example, given
+Any errors are accumulated as a list of `Throwable`. For example, given:
 
 ```scala
     val f = (config.as[String]("example.foo.some-string") |@|
