@@ -2,6 +2,7 @@ import cats.data.{NonEmptyList, Validated}
 
 
 package object kea {
+
   /** A non-empty list of throwable. */
   type ThrowableNel = NonEmptyList[Throwable]
 

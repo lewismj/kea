@@ -11,6 +11,7 @@ import kea.config._
 
 import scala.concurrent.duration.Duration
 
+
 trait ConfigInstances {
 
   /**
