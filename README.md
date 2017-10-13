@@ -9,7 +9,7 @@
 
 This library provides a type-safe (_validated_),  way to query Typelevel configuration.
 
-Configuration values are returned as a `Validated[A]`, which is defined as `type ValidatedNel[A] = Validated[ThrowableNel,A]`.
+Configuration values are returned as a `ValidatedNel[A]`, which is defined as `Validated[NonEmptyList[Throwable],A]`.
 So, any errors in your configuration may be accumulated.
 
 ## Dependency Information
