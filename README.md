@@ -4,12 +4,19 @@
 <p align="left">
 <img src="https://travis-ci.org/lewismj/kea.svg?branch=master"/>
 <a class="badge-align" href="https://www.codacy.com/app/lewismj/kea?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=lewismj/kea&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/8c5bd884421f40cf8936511208262be9"/></a>
+<img src="https://maven-badges.herokuapp.com/maven-central/com.waioeka/kea-core_2.12/badge.svg"/>
 </p>
 
 This library provides a type-safe (_validated_),  way to query Typelevel configuration.
 
 Configuration values are returned as a `Validated[A]`, which is defined as `type ValidatedNel[A] = Validated[ThrowableNel,A]`.
 So, any errors in your configuration may be accumulated.
+
+## Dependency Information
+
+```scala
+libraryDependencies += "com.waioeka" %% "kea-core" % "0.0.1"
+```
 
 ## Example
 
