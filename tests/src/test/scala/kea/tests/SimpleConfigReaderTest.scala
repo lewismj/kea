@@ -5,7 +5,6 @@ import cats.data.Validated
 
 import cats.implicits._
 import com.typesafe.config.{Config, ConfigFactory}
-import kea.config._
 import kea.implicits._
 
 

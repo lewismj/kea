@@ -5,14 +5,32 @@ package instances
 import scala.collection.JavaConverters._
 import scala.collection.breakOut
 import cats.Semigroup
+import cats.data.NonEmptyList
+import cats.data.Validated.{Invalid, Valid}
 import com.typesafe.config.Config
-import kea.config.ConfigReader
-import kea.config._
-
+import cats.syntax.either._
 import scala.concurrent.duration.Duration
 
 
 trait ConfigInstances {
+
+  /**
+    * Utility method (can be used to put Validation around library code etc.
+    * Takes a function f: => A and returns `ValidatedNel[A]`.
+    *
+    * @param f    the function to validate.
+    * @tparam A   the result type of the function.
+    * @return     a `ValidatedNel[A]`.
+    */
+  def validated[A](f: => A): ValidatedNel[A] = {
+    Either.catchOnly[Throwable](f) match {
+      case Left(t) => Invalid(NonEmptyList.of(t))
+      case Right(v) => Valid(v)
+    }
+  }
+
+  /** Implicit converter to the `Conf` from Typelevel config. */
+  implicit def toKeaConf(config: Config): Conf = Conf(config)
 
   /**
     * Define how to combine validation results.

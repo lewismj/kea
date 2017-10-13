@@ -15,7 +15,7 @@ So, any errors in your configuration may be accumulated.
 ## Dependency Information
 
 ```scala
-libraryDependencies += "com.waioeka" %% "kea-core" % "0.0.1"
+libraryDependencies += "com.waioeka" %% "kea-core" % "0.0.2"
 ```
 
 ## Example
@@ -39,7 +39,7 @@ We can specify the type of each configuration element, for example,
 
 ```scala
  import com.typesafe.config.{Config, ConfigFactory}
- import kea.config._
+ import kea.reader._
  import kea.implicits._
  
  val config = ConfigFactory.load
