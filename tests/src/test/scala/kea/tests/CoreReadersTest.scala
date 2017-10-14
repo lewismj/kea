@@ -9,7 +9,7 @@ import com.typesafe.config.{Config, ConfigFactory}
 import kea.implicits._
 
 
-class PrimitiveTypesReaderTest extends KeaSuite {
+class CoreReadersTest extends KeaSuite {
 
   private val config = ConfigFactory.load
 
@@ -22,6 +22,12 @@ class PrimitiveTypesReaderTest extends KeaSuite {
         config.as[Boolean]("example.foo.some-boolean") |@|
         config.as[Double]("example.foo.some-double") |@|
         config.as[Long]("example.foo.some-long")).map(Foo.apply)
+  }
+
+
+  test("can read sub-config.") {
+    val cfg = config.as[Config]("example.foo")
+    cfg.isValid should be (true)
   }
 
 
@@ -93,6 +99,16 @@ class PrimitiveTypesReaderTest extends KeaSuite {
   test("invalid optional value.") {
     val i = config.as[Option[Boolean]]("example.foo.some-int")
     i.isInvalid should be (true)
+  }
+
+  test("can read big double from configuration.") {
+    val bd = config.as[BigDecimal]("example.some-big-decimal")
+    bd.toOption should be (Some(BigDecimal("1.0")))
+  }
+
+  test("can read big int from configuration.") {
+    val bd = config.as[BigDecimal]("example.some-big-int")
+    bd.toOption should be (Some(BigInt("1")))
   }
 
 }

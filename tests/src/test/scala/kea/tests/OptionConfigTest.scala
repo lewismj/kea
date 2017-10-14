@@ -5,7 +5,7 @@ import cats.data.Validated.Valid
 import com.typesafe.config.ConfigFactory
 import kea.implicits._
 
-class OptionReaderTest extends KeaSuite {
+class OptionConfigTest extends KeaSuite {
 
   private val config = ConfigFactory.load
 
@@ -23,7 +23,5 @@ class OptionReaderTest extends KeaSuite {
     val i = config.as[Option[Boolean]]("example.foo.some-int")
     i.isInvalid should be (true)
   }
-
-
 
 }
