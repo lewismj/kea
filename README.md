@@ -7,10 +7,13 @@
 <img src="https://maven-badges.herokuapp.com/maven-central/com.waioeka/kea-core_2.12/badge.svg"/>
 </p>
 
-This library provides a type-safe (_validated_),  way to query Typelevel configuration.
+This library provides a type-safe (_validated_),  way to query [Typelevel configuration](https://github.com/typesafehub/config).
+The goal is to provide as minimal a wrapper as necessary, avoiding the use of macros, compiler plugins or a large number of
+dependencies.
 
 Configuration values are returned as a `ValidatedNel[A]`, which is defined as `Validated[NonEmptyList[Throwable],A]`.
 So, any errors in your configuration may be accumulated.
+
 
 ## Dependency Information
 
