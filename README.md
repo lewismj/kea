@@ -22,6 +22,11 @@ So, any errors in your configuration may be accumulated.
 libraryDependencies += "com.waioeka" %% "kea-core" % "0.0.2"
 ```
 
+## Issues/Tasks 
+
+Waffle [board](https://waffle.io/lewismj/tiki).
+
+
 ## Example
 
 Suppose we have some configuration:
