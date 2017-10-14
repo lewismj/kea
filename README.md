@@ -43,7 +43,6 @@ We can specify the type of each configuration element, for example,
 
 ```scala
  import com.typesafe.config.{Config, ConfigFactory}
- import kea.reader._
  import kea.implicits._
  
  val config = ConfigFactory.load
