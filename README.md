@@ -17,7 +17,7 @@ So, any errors in your configuration may be accumulated.
 
 ## Dependency Information
 ```scala
-libraryDependencies += "com.waioeka" %% "kea-core" % "0.0.3"
+libraryDependencies += "com.waioeka" %% "kea-core" % "0.0.4"
 ```
 
 ## Issues/Tasks 
