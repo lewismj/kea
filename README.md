@@ -1,5 +1,4 @@
 # kea 
-
 ## Summary
 <p align="left">
 <img src="https://travis-ci.org/lewismj/kea.svg?branch=master"/>
@@ -17,18 +16,14 @@ So, any errors in your configuration may be accumulated.
 
 
 ## Dependency Information
-
 ```scala
 libraryDependencies += "com.waioeka" %% "kea-core" % "0.0.3"
 ```
 
 ## Issues/Tasks 
-
 Waffle [board](https://waffle.io/lewismj/tiki).
 
-
 ## Example
-
 Suppose we have some configuration:
 ```
 example {
@@ -43,9 +38,7 @@ example {
   
 }
 ```
-
 We can specify the type of each configuration element, for example,
-
 ```scala
  import com.typesafe.config.{Config, ConfigFactory}
  import kea._
@@ -56,10 +49,8 @@ We can specify the type of each configuration element, for example,
  config.as[String]("example.foo.some-string")
  config.as[Int]("example.foo.some-int")
 ```
-
 These return a `ValidatedNel`, see [cats](https://typelevel.org/cats/datatypes/validated.html) for background details.
 This allow the composition of config functions as follows:
-
 ```scala
   case class Foo(s: String, i: Int, b: Boolean, d: Double, l: Long)
   object Foo {
@@ -71,9 +62,7 @@ This allow the composition of config functions as follows:
         config.as[Long]("example.foo.some-long")).map(Foo.apply)
   }
 ```
-
 Any errors are accumulated as a non empty list of `Throwable`. For example, given:
-
 ```scala
     val f = (config.as[String]("example.foo.some-string") |@|
              config.as[Int]("first error") |@|
@@ -82,9 +71,7 @@ Any errors are accumulated as a non empty list of `Throwable`. For example, give
              config.as[Long]("example.foo.some-long")).map(Foo.apply)
     println(f)
 ```
-
 Then `f` will accumulate two errors:
-
 ```scala
 Invalid(
   NonEmptyList(
@@ -93,14 +80,12 @@ Invalid(
   )
 )
 ```
-
 ## Optional values
-
-Reading an optional value of type `A` will a `ValidatedNel[Option[A]]`. 
-This will be:
+Reading an optional value of type `A`, for example,
+```scala
+config.as[Option[String]]("example.foo-somestring")
+```
+Returns a `ValidatedNel[Option[A]]`, this will be:
 * `Valid(None)`, if the path is missing (absence of the optional value).
 * `Validated(Some(a))`, where `a` is the instance of `A` at the path.
 * `Invalid(_)`, if the path exists but value could not be read (e.g. incorrect type).
-
-
-
