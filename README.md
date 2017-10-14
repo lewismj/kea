@@ -89,3 +89,18 @@ Returns a `ValidatedNel[Option[A]]`, this will be:
 * `Valid(None)`, if the path is missing (absence of the optional value).
 * `Validated(Some(a))`, where `a` is the instance of `A` at the path.
 * `Invalid(_)`, if the path exists but value could not be read (e.g. incorrect type).
+
+## Types
+
+Types are supported by implementing a `ConfigReader` instance. An example implementation for `ZonedDateTime` is shown below:
+```scala
+  implicit val loadDateReader: ConfigReader[LocalDate] = (c: Config, p: String) =>
+      validated(LocalDate.parse(c.getString(p)))
+```
+The library itself implements `ConfigReader` instances for the following types:
+
+* primitives: String, Boolean, Int, Double, Long, BigInt, BigDecimal.
+* configuration (reading inner configuration block): Config.
+* date-time: ZonedDateTime, LocalData and LocalDateTime.
+
+Together with `List` and `Option` of the above.
