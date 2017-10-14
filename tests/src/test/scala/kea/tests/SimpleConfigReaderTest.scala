@@ -119,7 +119,7 @@ class SimpleConfigReaderTest extends KeaSuite {
     i should be (Valid(None))
   }
 
-  test("missing invalid optional value.") {
+  test("invalid optional value.") {
     val i = config.as[Option[Boolean]]("example.foo.some-int")
     i.isInvalid should be (true)
   }
