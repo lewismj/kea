@@ -9,8 +9,8 @@ import cats.data.NonEmptyList
 import cats.data.Validated.{Invalid, Valid}
 import com.typesafe.config.Config
 import cats.syntax.either._
-import scala.concurrent.duration.Duration
 
+import scala.concurrent.duration.Duration
 
 trait ConfigInstances {
 
@@ -72,6 +72,18 @@ trait ConfigInstances {
 
   implicit val durationListReader: ConfigReader[List[Duration]] = (c: Config, p: String) => {
     validated(c.getDurationList(p).asScala.map(d => Duration.fromNanos(d.toNanos))(breakOut))
+  }
+
+  /** Optional reader. */
+  implicit def optionReader[A](implicit reader: ConfigReader[A]): ConfigReader[Option[A]] = (c: Config, p: String) => {
+    if (c.hasPath(p)) {
+      reader.get(c,p) match {
+        case Valid(a) => Valid(Some(a))
+        case i@Invalid(_) => i
+      }
+    } else {
+      Valid(None)
+    }
   }
 
 

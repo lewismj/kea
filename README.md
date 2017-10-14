@@ -19,7 +19,7 @@ So, any errors in your configuration may be accumulated.
 ## Dependency Information
 
 ```scala
-libraryDependencies += "com.waioeka" %% "kea-core" % "0.0.2"
+libraryDependencies += "com.waioeka" %% "kea-core" % "0.0.3"
 ```
 
 ## Issues/Tasks 
@@ -93,5 +93,14 @@ Invalid(
   )
 )
 ```
+
+## Optional values
+
+Reading an optional value of type `A` will a `ValidatedNel[Option[A]]`. 
+This will be:
+* `Valid(None)`, if the path is missing (absence of the optional value).
+* `Validated(Some(a))`, where `a` is the instance of `A` at the path.
+* `Invalid(_)`, if the path exists but value could not be read (e.g. incorrect type).
+
 
 
