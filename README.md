@@ -24,7 +24,10 @@ libraryDependencies += "com.waioeka" %% "kea-core" % "0.0.5"
 ```
 
 ## Issues/Tasks 
+
 Waffle [board](https://waffle.io/lewismj/tiki).
+
+- [ ] Currently support simple case classes, but not nested case classes.
 
 ## Example
 Suppose we have some configuration:
