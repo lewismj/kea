@@ -11,7 +11,7 @@ This library provides a type-safe (_validated_),  way to query [Typelevel config
 The goal is to provide as minimal a wrapper as necessary, avoiding the use of macros, compiler plugins or a large number of
 dependencies.
 
-Configuration values are returned as a `ValidatedNel[A]`, which is defined as `Validated[NonEmptyList[Throwable],A]`.
+Configuration values are returned as a `Result[A]`, which is defined as `Validated[NonEmptyList[Throwable],A]`.
 So, any errors in your configuration may be accumulated.
 
 Shapeless is used to read configuration into case classes, without the requirement for the library to diretly use macros.
