@@ -60,7 +60,7 @@ case class Foo(s: String, i: Int, b: Boolean, d: Double, l: Long)
 ```
 Then we can either compose the configuration functions manually:
 ```scala
-  /** Example,Manually composing configuration functions. */
+  /** Example, manually composing configuration functions. */
   object Foo {
     def apply(config: Config): ValidatedNel[Foo] =
       (config.as[String]("example.foo.some-string") |@|
@@ -70,7 +70,7 @@ Then we can either compose the configuration functions manually:
         config.as[Long]("example.foo.some-long")).map(Foo.apply)
   }
 ```
-Or, we can use the generic schema reader, given a configuration:
+Or, we can use the generic schema reader, for example,
 ```
     example {
       bar {
@@ -80,9 +80,9 @@ Or, we can use the generic schema reader, given a configuration:
       }
     }
 ```
-This can be read directly using the `GenericInstance` as follows,
+The above can be read directly using the `GenericInstance` as follows,
 ```scala
-   /** Example, Generic reader, no need to write boilerplate for case classes. */
+   /** Example, generic reader, no need to write boilerplate for case classes. */
    import kea.implicits._
    case class Bar(a: String, b: Boolean, c: Int)
    val result = config.as[Bar]("example.bar")
