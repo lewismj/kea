@@ -21,4 +21,18 @@ class GenericReaderTest extends KeaSuite {
     result should be (Valid(Baz("hello world",true,1234,"hello world")))
   }
 
+  test("can parse inner case classes.") {
+    /* first {
+      a: 1
+      b: "hello"
+      c {
+        d: "world"
+      }
+    } */
+    case class Second(d: String)
+    case class First(a: Int, b: String, c: Second)
+    val result  = config.as[First]("example.first")
+    result should be (Valid(First(1,"hello",Second("world"))))
+  }
+
 }

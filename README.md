@@ -14,9 +14,7 @@ dependencies.
 Configuration values are returned as a `ValidatedNel[A]`, which is defined as `Validated[NonEmptyList[Throwable],A]`.
 So, any errors in your configuration may be accumulated.
 
-Shapeless is used to read configuration into case classes, without the requirement for the library to use macros.
-See 'generic reader' below.
-
+Shapeless is used to read configuration into case classes, without the requirement for the library to diretly use macros.
 
 ## Dependency Information
 ```scala
@@ -26,8 +24,6 @@ libraryDependencies += "com.waioeka" %% "kea-core" % "0.0.5"
 ## Issues/Tasks 
 
 Waffle [board](https://waffle.io/lewismj/tiki).
-
-- [ ] Add support for nested case classes.
 
 ## Example
 Suppose we have some configuration:
@@ -75,21 +71,22 @@ Then we can either compose the configuration functions manually:
 ```
 Or, we can use the generic schema reader, for example,
 ```
-    example {
-      bar {
-        a: "hello world"
-        b: true
-        c: 1234
-      }
+first {
+    a: 1
+    b: "hello"
+    second {
+        d: "world"
     }
+}
 ```
 The above can be read directly using the `GenericInstance` as follows,
 ```scala
    /** Example, generic reader, no need to write boilerplate for case classes. */
    import kea.implicits._
-   case class Bar(a: String, b: Boolean, c: Int)
-   val result = config.as[Bar]("example.bar")
-   // result: "Valid(Bar(hello world,true,1234))"
+   case class Second(d: String)
+   case class First(a: Int, b: String, second: Second)
+   val result  = config.as[First]("example.first")
+    // result: Valid(First(1,"hello",Second("world"))))
 ```
 Note, by convention, given a field name `abcDef` the configuration expected is `abc-def`. This
 is enforced at present, but could be parameterised in a future version.
