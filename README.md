@@ -132,5 +132,5 @@ The library itself implements `ConfigReader` instances for the following types:
 * primitives: String, Boolean, Int, Double, Long, BigInt, BigDecimal.
 * configuration (reading inner configuration block): Config.
 * date-time: ZonedDateTime, LocalData and LocalDateTime.
-
+* case classes: the generic reader is included via kea.implicits._
 Together with `List` and `Option` of the above.
