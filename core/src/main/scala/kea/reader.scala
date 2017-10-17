@@ -15,9 +15,9 @@ trait ConfigReader[A] {
     * @param config the underlying configuration.
     * @param path   the path of the config item within
     *               the configuration.
-    * @return a `ValidatedNel[A]`
+    * @return a `Result[A]`
     */
-  def get(config: Config, path: String): ValidatedNel[A]
+  def get(config: Config, path: String): Result[A]
 }
 
 /**
@@ -34,9 +34,10 @@ case class Conf(config: Config) {
     * @param path     the path of the item to be read within the config file.
     * @param reader   the implicit configuration reader.
     * @tparam A       the type of the item to be read.
-    * @return         a `ValidatedNel[A]`.
+    * @return         a `Result[A]`.
     */
-  def as[A](path: String)(implicit reader: ConfigReader[A]): ValidatedNel[A]
+  def as[A](path: String)(implicit reader: ConfigReader[A]): Result[A]
     = reader.get(config,path)
 }
+
 

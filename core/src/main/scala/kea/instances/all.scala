@@ -8,4 +8,5 @@ trait AllInstances
   with OptionInstances
   with DateTimeInstances
   with UrlInstances
+  with GenericInstances
 

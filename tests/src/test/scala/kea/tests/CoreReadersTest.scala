@@ -16,7 +16,7 @@ class CoreReadersTest extends KeaSuite {
   /** Example, using validation to build a Validated case class. */
   case class Foo(s: String, i: Int, b: Boolean, d: Double, l: Long)
   object Foo {
-    def apply(config: Config): ValidatedNel[Foo] =
+    def apply(config: Config): Result[Foo] =
       (config.as[String]("example.foo.some-string") |@|
         config.as[Int]("example.foo.some-int") |@|
         config.as[Boolean]("example.foo.some-boolean") |@|

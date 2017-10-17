@@ -9,17 +9,17 @@ package object kea {
   type ThrowableNel = NonEmptyList[Throwable]
 
   /** Validated 'A', Invalid items are a Nel of throwable. */
-  type ValidatedNel[A] = Validated[ThrowableNel, A]
+  type Result[A] = Validated[ThrowableNel, A]
 
   /**
     * Utility method (can be used to put Validation around library code etc.
-    * Takes a function f: => A and returns `ValidatedNel[A]`.
+    * Takes a function f: => A and returns `Result[A]`.
     *
     * @param f    the function to validate.
     * @tparam A   the result type of the function.
-    * @return     a `ValidatedNel[A]`.
+    * @return     a `Result[A]`.
     */
-  def validated[A](f: => A): ValidatedNel[A] = {
+  def validated[A](f: => A): Result[A] = {
     Either.catchOnly[Throwable](f) match {
       case Left(t) => Invalid(NonEmptyList.of(t))
       case Right(v) => Valid(v)

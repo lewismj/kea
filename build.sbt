@@ -1,5 +1,8 @@
 import sbtassembly.AssemblyPlugin.autoImport._
 import com.typesafe.sbt.pgp.PgpKeys._
+import sbt.addCompilerPlugin
+
+
 
 lazy val commonScalacOptions = Seq(
   "-feature",
@@ -11,7 +14,7 @@ lazy val commonScalacOptions = Seq(
   "-unchecked",
   "-Xcheckinit",
   "-Xfuture",
-  "-Xlint",
+  //"-Xlint",
   "-Xfatal-warnings",
   "-Yno-adapted-args",
   "-Ywarn-dead-code",
@@ -20,7 +23,9 @@ lazy val commonScalacOptions = Seq(
 lazy val buildSettings = Seq(
   name := "kea",
   organization in Global := "com.waioeka",
-  scalaVersion in Global := "2.12.3"
+  scalaVersion in Global := "2.12.3",
+  resolvers += Resolver.sonatypeRepo("releases"),
+  addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full)
 )
 
 lazy val noPublishSettings = Seq(
@@ -46,6 +51,7 @@ lazy val scoverageSettings = Seq(
 lazy val commonSettings = Seq(
   scalacOptions ++= commonScalacOptions,
   libraryDependencies ++= Seq(
+    "com.chuusai" %% "shapeless" % "2.3.2",
     "org.typelevel" %% "cats" % "0.9.0",
     "com.typesafe" % "config" % "1.3.1"
   ),

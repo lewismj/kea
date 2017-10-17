@@ -14,10 +14,13 @@ dependencies.
 Configuration values are returned as a `ValidatedNel[A]`, which is defined as `Validated[NonEmptyList[Throwable],A]`.
 So, any errors in your configuration may be accumulated.
 
+Shapeless is used to read configuration into case classes, without the requirement for the library to use macros.
+See 'generic reader' below.
+
 
 ## Dependency Information
 ```scala
-libraryDependencies += "com.waioeka" %% "kea-core" % "0.0.4"
+libraryDependencies += "com.waioeka" %% "kea-core" % "0.0.5"
 ```
 
 ## Issues/Tasks 
@@ -50,9 +53,14 @@ We can specify the type of each configuration element, for example,
  config.as[Int]("example.foo.some-int")
 ```
 These return a `ValidatedNel`, see [cats](https://typelevel.org/cats/datatypes/validated.html) for background details.
-This allow the composition of config functions as follows:
+
+If we have a case class of the form:
 ```scala
-  case class Foo(s: String, i: Int, b: Boolean, d: Double, l: Long)
+case class Foo(s: String, i: Int, b: Boolean, d: Double, l: Long)
+```
+Then we can either compose the configuration functions manually:
+```scala
+  /** Example,Manually composing configuration functions. */
   object Foo {
     def apply(config: Config): ValidatedNel[Foo] =
       (config.as[String]("example.foo.some-string") |@|
@@ -62,7 +70,29 @@ This allow the composition of config functions as follows:
         config.as[Long]("example.foo.some-long")).map(Foo.apply)
   }
 ```
-Any errors are accumulated as a non empty list of `Throwable`. For example, given:
+Or, we can use the generic schema reader, given a configuration:
+```
+    example {
+      bar {
+        a: "hello world"
+        b: true
+        c: 1234
+      }
+    }
+```
+This can be read directly using the `GenericInstance` as follows,
+```scala
+   /** Example, Generic reader, no need to write boilerplate for case classes. */
+   import kea.implicits._
+   case class Bar(a: String, b: Boolean, c: Int)
+   val result = config.as[Bar]("example.bar")
+   // result: "Valid(Bar(hello world,true,1234))"
+```
+Note, by convention, given a field name `abcDef` the configuration expected is `abc-def`. This
+is enforced at present, but could be parameterised in a future version.
+
+Using a custom or generic configuration reader, any errors are accumulated as a non empty list of `Throwable`. 
+For example, given:
 ```scala
     val f = (config.as[String]("example.foo.some-string") |@|
              config.as[Int]("first error") |@|
