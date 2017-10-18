@@ -7,7 +7,6 @@ import shapeless._
 import labelled._
 import cats.syntax.cartesian._
 import kea.implicits._
-import kea.instances._
 import kea.types._
 
 /**
@@ -17,15 +16,8 @@ import kea.types._
 
 object generic {
 
-  object ConfigReader
-    extends PrimitiveInstances
-      with CollectionInstances
-      with ConfigInstances
-      with OptionInstances
-      with UrlInstances {
-
+  object ConfigReader {
     def to[V](c: Config, p: String)(implicit C: ConfigReader[V]): Result[V] = C.get(c, p)
-
     def instance[V](f: (Config, String) => Result[V]): ConfigReader[V] = (c: Config, p: String) => f(c, p)
   }
 
