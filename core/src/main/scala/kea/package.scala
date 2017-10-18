@@ -1,15 +1,10 @@
 import cats.data.Validated.{Invalid, Valid}
-import cats.data.{NonEmptyList, Validated}
+import cats.data.{NonEmptyList}
 import cats.syntax.either._
+import kea.types.Result
 
 
 package object kea {
-
-  /** A non-empty list of throwable. */
-  type ThrowableNel = NonEmptyList[Throwable]
-
-  /** Validated 'A', Invalid items are a Nel of throwable. */
-  type Result[A] = Validated[ThrowableNel, A]
 
   /**
     * Utility method (can be used to put Validation around library code etc.

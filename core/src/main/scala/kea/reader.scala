@@ -1,6 +1,7 @@
 package kea
 
 import com.typesafe.config.Config
+import kea.types.Result
 
 
 /**
@@ -40,4 +41,17 @@ case class Conf(config: Config) {
     = reader.get(config,path)
 }
 
+/**
+  * Map between field names of case classes and their configuration names.
+  * Typically a field name will be 'abcDef' and the config 'abc-def'.
+  */
+trait FieldNameMapper {
+  def replace(fieldName: String): String
+}
 
+/** Default field name mapper. */
+case object DefaultFieldNameMapper extends FieldNameMapper {
+  private lazy val r = "((?<=[a-z0-9])[A-Z]|(?<=[a-zA-Z])[0-9]|(?!^)[A-Z](?=[a-z]))".r
+  override def replace(fieldName: String): String
+    = r.replaceAllIn(fieldName, m => s"-${m.group(1)}").toLowerCase
+}

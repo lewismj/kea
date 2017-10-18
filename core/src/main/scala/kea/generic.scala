@@ -8,6 +8,7 @@ import labelled._
 import cats.syntax.cartesian._
 import kea.implicits._
 import kea.instances._
+import kea.types._
 
 /**
   * This is an adaption of the gist:
@@ -15,12 +16,6 @@ import kea.instances._
   */
 
 object generic {
-
-  /** Adopt convention that abcDef should be abc-def in the configuration. */
-  private lazy val r = "((?<=[a-z0-9])[A-Z]|(?<=[a-zA-Z])[0-9]|(?!^)[A-Z](?=[a-z]))".r
-  private def toConfigName(fieldName: String): String = {
-    r.replaceAllIn(fieldName, m => s"-${m.group(1)}").toLowerCase
-  }
 
   object ConfigReader
     extends PrimitiveInstances
@@ -54,14 +49,17 @@ object generic {
       Schema.instance { (config, path) => schema.from(config, path).map(x => repr.from(x)) }
 
     implicit def parsing[K <: Symbol, V: ConfigReader, T <: HList](
-                                                                    implicit key: Witness.Aux[K],
-                                                                    next: Schema[T]): Schema[FieldType[K, V] :: T] = {
+        implicit key: Witness.Aux[K],
+        next: Schema[T],
+        mapper: FieldNameMapper = DefaultFieldNameMapper): Schema[FieldType[K, V] :: T] = {
+
       Schema.instance { (config, path) =>
         val fieldName = key.value.name
-        val f = ConfigReader.to[V](config, path + "." + toConfigName(fieldName)).map(f => field[K](f))
+        val f = ConfigReader.to[V](config, path + "." + mapper.replace(fieldName)).map(f => field[K](f))
         (f |@| next.from(config, path)).map(_ :: _)
       }
     }
+
   }
 
 }

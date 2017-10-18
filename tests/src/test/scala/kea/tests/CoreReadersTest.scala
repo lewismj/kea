@@ -7,6 +7,7 @@ import cats.data.Validated.Valid
 import cats.implicits._
 import com.typesafe.config.{Config, ConfigFactory}
 import kea.implicits._
+import kea.types._
 
 
 class CoreReadersTest extends KeaSuite {
@@ -75,6 +76,10 @@ class CoreReadersTest extends KeaSuite {
     l should be (Validated.valid(1 second))
   }
 
+  test("can read finite duration from configuration.") {
+    val fd = config.as[FiniteDuration]("example.some-duration")
+    fd should be (Validated.valid(1 second))
+  }
 
   test("missing element should return invalid.") {
     val e = config.as[String]("example.missing")

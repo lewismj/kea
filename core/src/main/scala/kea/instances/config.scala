@@ -4,7 +4,7 @@ package instances
 
 import cats.Semigroup
 import com.typesafe.config.Config
-
+import kea.types._
 
 trait ConfigInstances {
 
