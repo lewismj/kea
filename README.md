@@ -18,7 +18,7 @@ Shapeless is used to read configuration into case classes, without the requireme
 
 ## Dependency Information
 ```scala
-libraryDependencies += "com.waioeka" %% "kea-core" % "0.0.5"
+libraryDependencies += "com.waioeka" %% "kea-core" % "0.0.6"
 ```
 
 ## Issues/Tasks 
