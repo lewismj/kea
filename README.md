@@ -7,7 +7,7 @@
 <img src="https://maven-badges.herokuapp.com/maven-central/com.waioeka/kea-core_2.12/badge.svg"/>
 </p>
 
-This library provides a type-safe (_validated_),  way to query [Typelevel configuration](https://github.com/typesafehub/config).
+This library provides a type-safe (_validated_) way to query [Typelevel configuration](https://github.com/typesafehub/config).
 The goal is to provide as minimal a wrapper as necessary, avoiding the use of macros, compiler plugins or a large number of
 dependencies.
 
