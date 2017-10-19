@@ -112,7 +112,7 @@ class CoreReadersTest extends KeaSuite {
   }
 
   test("can read big int from configuration.") {
-    val bd = config.as[BigDecimal]("example.some-big-int")
+    val bd = config.as[BigInt]("example.some-big-int")
     bd.toOption should be (Some(BigInt("1")))
   }
 

@@ -29,7 +29,7 @@ object generic {
     private def instance[A](f: (Config, String) => Result[A]): Schema[A] = new Schema[A] {
       def from(c: Config, p: String): Result[A] = f(c, p)
     }
-    
+
     implicit val noOp: Schema[HNil] = new Schema[HNil] {
       override def from(c: Config, p: String): Result[HNil] = Valid(HNil)
     }
