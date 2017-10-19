@@ -97,7 +97,7 @@ class CoreReadersTest extends KeaSuite {
   }
 
   test("inf is an invalid finite duration.") {
-    val fd = config.as[FiniteDuration]("example.inf-duration")
+    val fd = config.as[FiniteDuration]("example.duration-inf")
     fd.isInvalid should be (true)
   }
 
