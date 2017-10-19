@@ -19,7 +19,14 @@ trait PrimitiveInstances {
   implicit val doubleReader: ConfigReader[Double] = (c: Config, p: String) => validated(c.getDouble(p))
 
   implicit val durationReader: ConfigReader[Duration] = (c: Config, p: String)
-    => validated(Duration.fromNanos(c.getDuration(p).toNanos))
+    => validated {
+      c.getString(p).toLowerCase match {
+        case "inf" => Duration.Inf
+        case "minusinf" => Duration.MinusInf
+        case "undefined" => Duration.Undefined
+        case _ => Duration.fromNanos(c.getDuration(p).toNanos)
+      }
+    }
 
   implicit val bigDecimalReader: ConfigReader[BigDecimal] = (c: Config, p: String)
     => validated(BigDecimal(c.getString(p)))

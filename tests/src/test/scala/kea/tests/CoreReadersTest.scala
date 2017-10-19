@@ -81,6 +81,26 @@ class CoreReadersTest extends KeaSuite {
     fd should be (Validated.valid(1 second))
   }
 
+  test("can read inf duration from configuration.") {
+    val fd = config.as[Duration]("example.duration-inf")
+    fd should be (Validated.valid(Duration.Inf))
+  }
+
+  test("can read minus inf duration from configuration.") {
+    val fd = config.as[Duration]("example.duration-minus-inf")
+    fd should be (Validated.valid(Duration.MinusInf))
+  }
+
+  test("can read minus undecided duration from configuration.") {
+    val fd = config.as[Duration]("example.duration-undefined")
+    fd should be (Validated.valid(Duration.Undefined))
+  }
+
+  test("inf is an invalid finite duration.") {
+    val fd = config.as[FiniteDuration]("example.inf-duration")
+    fd.isInvalid should be (true)
+  }
+
   test("missing element should return invalid.") {
     val e = config.as[String]("example.missing")
     e.isInvalid should be (true)
