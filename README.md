@@ -65,7 +65,7 @@ If we have configuration of the form:
     b: 12
   }
 ```
-Then this can be read directly into an ADT as follows:
+Then this can be read directly into the case class structure as follows:
 ```scala
     case class Foo(c: String, d: Int, e: String, f: Int)
     case class Bar(a: Foo, b: Int)
