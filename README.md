@@ -23,7 +23,11 @@ libraryDependencies += "com.waioeka" %% "kea-core" % "0.0.7"
 
 ## Issues/Tasks 
 
-Waffle [board](https://waffle.io/lewismj/tiki).
+Waffle [board](https://waffle.io/lewismj/kea).
+<p align=left>
+<a src="https://badge.waffle.io/lewismj/kea.svg?columns=In%20Progress,Done&style=flat-square"/>
+</p>
+
 
 ## Example
 Suppose we have some configuration:
