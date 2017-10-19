@@ -1,6 +1,5 @@
 package kea
 
-import cats.data.Validated
 import cats.data.Validated.Valid
 import com.typesafe.config.Config
 import shapeless.labelled.FieldType
@@ -8,7 +7,6 @@ import shapeless._
 import labelled._
 import cats.syntax.cartesian._
 import kea.implicits._
-import kea.instances.AllInstances
 import kea.types._
 
 /**
@@ -18,11 +16,7 @@ import kea.types._
 
 
 object generic {
-  
-  object ConfigReader extends AllInstances {
-    def to[V](c: Config, p: String)(implicit C: ConfigReader[V]): Result[V] = C.get(c, p)
-    def instance[V](f: (Config, String) => Result[V]): ConfigReader[V] = (c: Config, p: String) => f(c, p)
-  }
+
 
   sealed trait Schema[A] {
     def from(c: Config, p: String): Result[A]
@@ -35,9 +29,7 @@ object generic {
     private def instance[A](f: (Config, String) => Result[A]): Schema[A] = new Schema[A] {
       def from(c: Config, p: String): Result[A] = f(c, p)
     }
-
-
-
+    
     implicit val noOp: Schema[HNil] = new Schema[HNil] {
       override def from(c: Config, p: String): Result[HNil] = Valid(HNil)
     }
