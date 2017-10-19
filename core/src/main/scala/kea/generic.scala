@@ -18,10 +18,7 @@ import kea.types._
 
 
 object generic {
-
-
-//  implicit def hilConfigRreader: ConfigReader[HNil]  = (_:Config,_:String) => Validated.valid(HNil)
-
+  
   object ConfigReader extends AllInstances {
     def to[V](c: Config, p: String)(implicit C: ConfigReader[V]): Result[V] = C.get(c, p)
     def instance[V](f: (Config, String) => Result[V]): ConfigReader[V] = (c: Config, p: String) => f(c, p)
