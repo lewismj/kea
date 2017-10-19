@@ -7,7 +7,6 @@ import scala.collection.JavaConverters._
 import scala.collection.breakOut
 import scala.concurrent.duration.Duration
 
-
 trait CollectionInstances {
 
   /*

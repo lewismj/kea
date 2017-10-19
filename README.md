@@ -14,11 +14,11 @@ dependencies.
 Configuration values are returned as a `Result[A]`, which is defined as `Validated[NonEmptyList[Throwable],A]`.
 So, any errors in your configuration may be accumulated.
 
-Shapeless is used to read configuration into case classes, without the requirement for the library to diretly use macros.
+Shapeless is used to read configuration case classes, without the requirement for the library to directly use macros.
 
 ## Dependency Information
 ```scala
-libraryDependencies += "com.waioeka" %% "kea-core" % "0.0.6"
+libraryDependencies += "com.waioeka" %% "kea-core" % "0.0.7"
 ```
 
 ## Issues/Tasks 
@@ -53,41 +53,26 @@ We can specify the type of each configuration element, for example,
 ```
 These return a `ValidatedNel`, see [cats](https://typelevel.org/cats/datatypes/validated.html) for background details.
 
-If we have a case class of the form:
+If we have configuration of the form:
 ```scala
-case class Foo(s: String, i: Int, b: Boolean, d: Double, l: Long)
-```
-Then we can either compose the configuration functions manually:
-```scala
-  /** Example, manually composing configuration functions. */
-  object Foo {
-    def apply(config: Config): ValidatedNel[Foo] =
-      (config.as[String]("example.foo.some-string") |@|
-        config.as[Int]("example.foo.some-int") |@|
-        config.as[Boolean]("example.foo.some-boolean") |@|
-        config.as[Double]("example.foo.some-double") |@|
-        config.as[Long]("example.foo.some-long")).map(Foo.apply)
+  adt {
+    a {
+      c: "hello"
+      d: 1
+      e: "world"
+      f: 2
+    }
+    b: 12
   }
 ```
-Or, we can use the generic schema reader, for example,
-```
-first {
-    a: 1
-    b: "hello"
-    second {
-        d: "world"
-    }
-}
-```
-The above can be read directly using the `GenericInstance` as follows,
+Then this can be read directly into an ADT as follows:
 ```scala
-   /** Example, generic reader, no need to write boilerplate for case classes. */
-   import kea.implicits._
-   case class Second(d: String)
-   case class First(a: Int, b: String, second: Second)
-   val result  = config.as[First]("example.first")
-    // result: Valid(First(1,"hello",Second("world"))))
+    case class Foo(c: String, d: Int, e: String, f: Int)
+    case class Bar(a: Foo, b: Int)
+    val result = config.as[Bar]("example.adt")
+    // result: (Valid(Bar(Foo(hello, 1, world, 2), 12)))
 ```
+
 Note, by convention, given a field name `abcDef` the configuration expected is `abc-def`. This
 is enforced at present, but could be parameterised in a future version.
 
@@ -132,6 +117,6 @@ The library itself implements `ConfigReader` instances for the following types:
 * primitives: String, Boolean, Int, Double, Long, BigInt, BigDecimal.
 * configuration (reading inner configuration block): Config.
 * date-time: ZonedDateTime, LocalData and LocalDateTime.
-* case classes: the generic reader is included via kea.implicits._
+* case classes: support for algebraic data types.
 
 Together with `List` and `Option` of the above.

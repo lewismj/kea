@@ -1,5 +1,6 @@
 package kea
 
+import cats.data.Validated
 import cats.data.Validated.Valid
 import com.typesafe.config.Config
 import shapeless.labelled.FieldType
@@ -7,6 +8,7 @@ import shapeless._
 import labelled._
 import cats.syntax.cartesian._
 import kea.implicits._
+import kea.instances.AllInstances
 import kea.types._
 
 /**
@@ -14,9 +16,13 @@ import kea.types._
   *   https://gist.github.com/SystemFw/03d66d65e471c98f02ba27d7180465b1
   */
 
+
 object generic {
 
-  object ConfigReader {
+
+//  implicit def hilConfigRreader: ConfigReader[HNil]  = (_:Config,_:String) => Validated.valid(HNil)
+
+  object ConfigReader extends AllInstances {
     def to[V](c: Config, p: String)(implicit C: ConfigReader[V]): Result[V] = C.get(c, p)
     def instance[V](f: (Config, String) => Result[V]): ConfigReader[V] = (c: Config, p: String) => f(c, p)
   }
@@ -33,6 +39,8 @@ object generic {
       def from(c: Config, p: String): Result[A] = f(c, p)
     }
 
+
+
     implicit val noOp: Schema[HNil] = new Schema[HNil] {
       override def from(c: Config, p: String): Result[HNil] = Valid(HNil)
     }
@@ -40,15 +48,18 @@ object generic {
     implicit def classes[A, R <: HList](implicit repr: LabelledGeneric.Aux[A, R], schema: Schema[R]): Schema[A] =
       Schema.instance { (config, path) => schema.from(config, path).map(x => repr.from(x)) }
 
-    implicit def parsing[K <: Symbol, V: ConfigReader, T <: HList](
+    implicit def parsing[K <: Symbol, V, T <: HList](
         implicit key: Witness.Aux[K],
         next: Schema[T],
+        reader: Lazy[ConfigReader[V]],
         mapper: FieldNameMapper = DefaultFieldNameMapper): Schema[FieldType[K, V] :: T] = {
 
       Schema.instance { (config, path) =>
+
         val fieldName = key.value.name
-        val f = ConfigReader.to[V](config, path + "." + mapper.replace(fieldName)).map(f => field[K](f))
+        val f = reader.value.get(config, path + "." + mapper.replace(fieldName)).map(f => field[K](f))
         (f |@| next.from(config, path)).map(_ :: _)
+
       }
     }
 

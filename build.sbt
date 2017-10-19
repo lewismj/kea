@@ -23,9 +23,9 @@ lazy val commonScalacOptions = Seq(
 lazy val buildSettings = Seq(
   name := "kea",
   organization in Global := "com.waioeka",
-  scalaVersion in Global := "2.12.3",
-  resolvers += Resolver.sonatypeRepo("releases"),
-  addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full)
+  scalaVersion in Global := "2.12.3"
+//  resolvers += Resolver.sonatypeRepo("releases"),
+//  addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full)
 )
 
 lazy val noPublishSettings = Seq(

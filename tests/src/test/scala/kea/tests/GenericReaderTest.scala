@@ -22,13 +22,6 @@ class GenericReaderTest extends KeaSuite {
   }
 
   test("can parse inner case classes.") {
-    /* first {
-      a: 1
-      b: "hello"
-      c {
-        d: "world"
-      }
-    } */
     case class Second(d: String)
     case class First(a: Int, b: String, c: Second)
     val result  = config.as[First]("example.first")
@@ -37,18 +30,10 @@ class GenericReaderTest extends KeaSuite {
 
 
   test("can parse inner case classes foo.") {
-
-    /** works. */
-//    case class Second(c: String, d: Int)
-//    case class First(a: Second, b: Int)
-//    val compilesOk  = config.as[First]("example.first")
-
-    /** divergent implicit expansion. */
-//    case class SecondX(c: String, d: Int)
-//    case class FirstX(a: Second)
-//    val failesToCompile = config.as[FirstX]("example.first")
-
-    true
+    case class Foo(c: String, d: Int, e: String, f: Int)
+    case class Bar(a: Foo, b: Int)
+    val result = config.as[Bar]("example.adt")
+    result should be(Valid(Bar(Foo("hello", 1, "world", 2), 12)))
   }
 
 
