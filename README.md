@@ -1,10 +1,16 @@
 # kea 
 ## Summary
 <p align="left">
+<a href="https://travis-ci.org/lewismj/kea">
 <img src="https://travis-ci.org/lewismj/kea.svg?branch=master"/>
+</a>
 <a class="badge-align" href="https://www.codacy.com/app/lewismj/kea?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=lewismj/kea&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/8c5bd884421f40cf8936511208262be9"/></a>
+<a href="https://codecov.io/gh/lewismj/kea">
 <img src="https://codecov.io/gh/lewismj/kea/branch/master/graph/badge.svg" alt="Codecov"/>
+</a>
+<a href="https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22kea-core_2.12%22">
 <img src="https://maven-badges.herokuapp.com/maven-central/com.waioeka/kea-core_2.12/badge.svg"/>
+</a>
 </p>
 
 This library provides a type-safe (_validated_) way to query [Typelevel configuration](https://github.com/typesafehub/config).
