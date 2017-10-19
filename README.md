@@ -14,7 +14,7 @@ dependencies.
 Configuration values are returned as a `Result[A]`, which is defined as `Validated[NonEmptyList[Throwable],A]`.
 So, any errors in your configuration may be accumulated.
 
-Shapeless is used to read configuration into case classes, without the requirement for the library to directly use macros.
+[Shapeless](https://github.com/milessabin/shapeless) is used to read configuration into case classes, without the requirement for the library to directly use macros.
 
 ## Dependency Information
 ```scala
