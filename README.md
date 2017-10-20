@@ -87,12 +87,10 @@ For example, given:
 ```
 Then `f` will accumulate two errors:
 ```scala
-Invalid(
-  NonEmptyList(
-    com.typesafe.config.ConfigException$Missing: No configuration setting found for key '"first error"', 
-    com.typesafe.config.ConfigException$Missing: No configuration setting found for key '"second error"'
-  )
-)
+Invalid(NonEmptyList(
+ com.typesafe.config.ConfigException$Missing: No configuration setting found for key '"first error"', 
+ com.typesafe.config.ConfigException$Missing: No configuration setting found for key '"second error"'
+))
 ```
 ## Optional values
 Reading an optional value of type `A`, for example,
