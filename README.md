@@ -111,10 +111,10 @@ Types are supported by implementing a `ConfigReader` instance. An example implem
 ```
 The library itself implements `ConfigReader` instances for the following types:
 
-* primitives: String, Boolean, Int, Double, Long, BigInt, BigDecimal, Uuid, Url, Uri.
-* configuration (reading inner configuration block): Config.
-* date-time: ZonedDateTime, LocalData and LocalDateTime.
-* enumerations: See the `EnumerationReaderTest` for a simple example.
-* case classes: support for algebraic data types.
+* __primitives__: String, Boolean, Int, Double, Long, BigInt, BigDecimal, Uuid, Url, Uri.
+* __configuration__ (reading inner configuration block): Config.
+* __date-time__: ZonedDateTime, LocalData and LocalDateTime.
+* __enumerations__: See the `EnumerationReaderTest` for a simple example.
+* __case classes__: support for algebraic data types.
 
 Together with collection types (e.g. `List`, `Vector`, etc.) and `Option` of the above.
