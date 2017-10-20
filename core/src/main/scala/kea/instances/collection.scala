@@ -17,21 +17,20 @@ trait CollectionInstances {
                                          builder: CanBuildFrom[Nothing, A, T[A]]): ConfigReader[T[A]]
     = (c: Config, p: String) => {
 
-    val xs = c.getList(p).asScala
+    validated(c.getList(p).asScala).andThen(xs => {
+      val validations = xs.map(x => {
+        val elem = x.atPath("dummy")
+        reader.get(elem, "dummy")
+      }).toList
 
-    val validations = xs.map(x => {
-      val elem = x.atPath("dummy")
-      reader.get(elem, "dummy")
-    }).toList
-
-    validations.sequenceU match {
-      case i@Invalid(_) => i
-      case Valid(ys) =>
-        val build = builder()
-        build.sizeHint(ys.size)
-        ys.foreach(build += _)
-        Valid(build.result())
-    }
+      validations.sequenceU match {
+        case i@Invalid(_) => i
+        case Valid(ys) =>
+          val build = builder()
+          build.sizeHint(ys.size)
+          ys.foreach(build += _)
+          Valid(build.result())
+      }
+    })
   }
-
 }

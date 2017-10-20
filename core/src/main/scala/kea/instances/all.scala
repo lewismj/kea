@@ -9,4 +9,5 @@ trait AllInstances
   with DateTimeInstances
   with UrlInstances
   with GenericInstances
+  with EnumerationInstances
 

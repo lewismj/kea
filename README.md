@@ -14,13 +14,14 @@
 </p>
 
 This library provides a type-safe (_validated_) way to query [Typelevel configuration](https://github.com/typesafehub/config).
-The goal is to provide as minimal a wrapper as necessary, avoiding the use of macros, compiler plugins or a large number of
+The goal is to provide as minimal a wrapper as necessary, avoiding the direct use of macros, compiler plugins or a large number of
 dependencies.
 
 Configuration values are returned as a `ValidatedConfig[A]`, which is defined as `Validated[NonEmptyList[Throwable],A]`.
 So, any errors in your configuration may be accumulated.
 
-[Shapeless](https://github.com/milessabin/shapeless) is used to read configuration into case classes, without the requirement for the library to directly use macros.
+[Shapeless](https://github.com/milessabin/shapeless) is used to read configuration into case classes, without 
+the requirement for the library to directly use macros.
 
 ## Dependency Information
 ```scala
@@ -52,7 +53,6 @@ example {
 We can specify the type of each configuration element, for example,
 ```scala
  import com.typesafe.config.{Config, ConfigFactory}
- import kea.types._
  import kea.implicits._
  
  val config = ConfigFactory.load
@@ -123,9 +123,10 @@ Types are supported by implementing a `ConfigReader` instance. An example implem
 ```
 The library itself implements `ConfigReader` instances for the following types:
 
-* primitives: String, Boolean, Int, Double, Long, BigInt, BigDecimal.
+* primitives: String, Boolean, Int, Double, Long, BigInt, BigDecimal, Uuid, Url, Uri.
 * configuration (reading inner configuration block): Config.
 * date-time: ZonedDateTime, LocalData and LocalDateTime.
+* enumerations: See the `EnumerationReaderTest` for a simple example.
 * case classes: support for algebraic data types.
 
-Together with `List` and `Option` of the above.
+Together with collection types (e.g. `List`, `Vector`, etc.) and `Option` of the above.
