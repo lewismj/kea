@@ -39,15 +39,10 @@ libraryDependencies += "com.waioeka" %% "kea-core" % "0.0.8"
 Suppose we have some configuration:
 ```
 example {
-
   foo {
     some-string = "hello world"
     some-int = 4
-    some-boolean = true
-    some-double = 1.1
-    some-long = 1234
   }
-  
 }
 ```
 We can specify the type of each configuration element, for example,
