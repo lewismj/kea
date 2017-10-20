@@ -19,19 +19,19 @@ object generic {
 
 
   sealed trait Schema[A] {
-    def from(c: Config, p: String): Result[A]
+    def from(c: Config, p: String): ValidatedConfig[A]
   }
 
   object Schema {
 
     def of[A](implicit s: Schema[A]): Schema[A] = s
 
-    private def instance[A](f: (Config, String) => Result[A]): Schema[A] = new Schema[A] {
-      def from(c: Config, p: String): Result[A] = f(c, p)
+    private def instance[A](f: (Config, String) => ValidatedConfig[A]): Schema[A] = new Schema[A] {
+      def from(c: Config, p: String): ValidatedConfig[A] = f(c, p)
     }
 
     implicit val noOp: Schema[HNil] = new Schema[HNil] {
-      override def from(c: Config, p: String): Result[HNil] = Valid(HNil)
+      override def from(c: Config, p: String): ValidatedConfig[HNil] = Valid(HNil)
     }
 
     implicit def classes[A, R <: HList](implicit repr: LabelledGeneric.Aux[A, R], schema: Schema[R]): Schema[A] =

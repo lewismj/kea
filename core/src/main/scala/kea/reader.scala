@@ -1,7 +1,7 @@
 package kea
 
 import com.typesafe.config.Config
-import kea.types.Result
+import kea.types.ValidatedConfig
 
 
 /**
@@ -16,9 +16,9 @@ trait ConfigReader[A] {
     * @param config the underlying configuration.
     * @param path   the path of the config item within
     *               the configuration.
-    * @return a `Result[A]`
+    * @return a `ValidatedConfig[A]`
     */
-  def get(config: Config, path: String): Result[A]
+  def get(config: Config, path: String): ValidatedConfig[A]
 }
 
 /**
@@ -35,9 +35,9 @@ case class Conf(config: Config) {
     * @param path     the path of the item to be read within the config file.
     * @param reader   the implicit configuration reader.
     * @tparam A       the type of the item to be read.
-    * @return         a `Result[A]`.
+    * @return         a `ValidatedConfig[A]`.
     */
-  def as[A](path: String)(implicit reader: ConfigReader[A]): Result[A]
+  def as[A](path: String)(implicit reader: ConfigReader[A]): ValidatedConfig[A]
     = reader.get(config,path)
 }
 

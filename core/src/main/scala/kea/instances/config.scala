@@ -9,7 +9,7 @@ import kea.types._
 trait ConfigInstances {
 
   /** Implicit converter to the `Conf` from Typelevel config. */
-  implicit def toKeaConf(config: Config): Conf = Conf(config)
+  implicit def toConf(config: Config): Conf = Conf(config)
 
   /**
     * Define how to combine validation results.

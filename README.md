@@ -17,14 +17,14 @@ This library provides a type-safe (_validated_) way to query [Typelevel configur
 The goal is to provide as minimal a wrapper as necessary, avoiding the use of macros, compiler plugins or a large number of
 dependencies.
 
-Configuration values are returned as a `Result[A]`, which is defined as `Validated[NonEmptyList[Throwable],A]`.
+Configuration values are returned as a `ValidatedConfig[A]`, which is defined as `Validated[NonEmptyList[Throwable],A]`.
 So, any errors in your configuration may be accumulated.
 
 [Shapeless](https://github.com/milessabin/shapeless) is used to read configuration into case classes, without the requirement for the library to directly use macros.
 
 ## Dependency Information
 ```scala
-libraryDependencies += "com.waioeka" %% "kea-core" % "0.0.7"
+libraryDependencies += "com.waioeka" %% "kea-core" % "0.0.8"
 ```
 
 ## Issues/Tasks 

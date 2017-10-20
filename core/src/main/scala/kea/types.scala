@@ -8,6 +8,6 @@ object types {
   type ThrowableNel = NonEmptyList[Throwable]
 
   /** Validated 'A', Invalid items are a Nel of throwable. */
-  type Result[A] = Validated[ThrowableNel, A]
+  type ValidatedConfig[A] = Validated[ThrowableNel, A]
 
 }

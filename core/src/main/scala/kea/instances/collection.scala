@@ -1,37 +1,37 @@
 package kea
 package instances
 
+import cats.implicits._
+import cats.data.Validated.{Invalid, Valid}
 import com.typesafe.config.Config
 
 import scala.collection.JavaConverters._
-import scala.collection.breakOut
-import scala.concurrent.duration.Duration
+import scala.collection.generic.CanBuildFrom
+import scala.language.postfixOps
+import scala.language.higherKinds
+
 
 trait CollectionInstances {
 
-  /*
-    Note, we could use CanBuildFrom for generalized containers.
-    Usually we want either List, that can be converted.
-    */
+  implicit def collectionReader[T[_], A](implicit reader: ConfigReader[A],
+                                         builder: CanBuildFrom[Nothing, A, T[A]]): ConfigReader[T[A]]
+    = (c: Config, p: String) => {
 
-  /** Primitive List readers. */
-  implicit val doubleListReader: ConfigReader[List[Double]] = (c: Config, p: String) =>
-    validated(c.getDoubleList(p).asScala.map(_.doubleValue)(breakOut))
+    val xs = c.getList(p).asScala
 
-  implicit val intListReader: ConfigReader[List[Int]] = (c: Config, p: String) =>
-    validated(c.getIntList(p).asScala.map(_.intValue)(breakOut))
+    val validations = xs.map(x => {
+      val elem = x.atPath("dummy")
+      reader.get(elem, "dummy")
+    }).toList
 
-  implicit val longListReader: ConfigReader[List[Long]] = (c: Config, p: String) =>
-    validated(c.getIntList(p).asScala.map(_.longValue)(breakOut))
-
-  implicit val boolListReader: ConfigReader[List[Boolean]] = (c: Config, p: String) =>
-    validated(c.getBooleanList(p).asScala.map(_.booleanValue)(breakOut))
-
-  implicit val stringListReader: ConfigReader[List[String]] = (c: Config, p: String) =>
-    validated(c.getStringList(p).asScala.toList)
-
-  implicit val durationListReader: ConfigReader[List[Duration]] = (c: Config, p: String) =>
-    validated(c.getDurationList(p).asScala.map(d => Duration.fromNanos(d.toNanos))(breakOut))
-
+    validations.sequenceU match {
+      case i@Invalid(_) => i
+      case Valid(ys) =>
+        val build = builder()
+        build.sizeHint(ys.size)
+        ys.foreach(build += _)
+        Valid(build.result())
+    }
+  }
 
 }

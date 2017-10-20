@@ -1,6 +1,8 @@
 package kea
 package instances
 
+import java.util.UUID
+
 import com.typesafe.config.Config
 
 import scala.concurrent.duration.{Duration, FiniteDuration}
@@ -40,6 +42,8 @@ trait PrimitiveInstances {
       case None => throw new RuntimeException(s"duration is not finite: $duration")
     }
   }
+
+  implicit val uuidReader: ConfigReader[UUID] = (c: Config, p: String) => validated(UUID.fromString(c.getString(p)))
 
 
 }

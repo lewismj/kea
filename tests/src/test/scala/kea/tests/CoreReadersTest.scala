@@ -1,6 +1,8 @@
 package kea
 package tests
 
+import java.util.UUID
+
 import scala.concurrent.duration._
 import cats.data.Validated
 import cats.data.Validated.Valid
@@ -17,7 +19,7 @@ class CoreReadersTest extends KeaSuite {
   /** Example, using validation to build a Validated case class. */
   case class Foo(s: String, i: Int, b: Boolean, d: Double, l: Long)
   object Foo {
-    def apply(config: Config): Result[Foo] =
+    def apply(config: Config): ValidatedConfig[Foo] =
       (config.as[String]("example.foo.some-string") |@|
         config.as[Int]("example.foo.some-int") |@|
         config.as[Boolean]("example.foo.some-boolean") |@|
@@ -134,6 +136,11 @@ class CoreReadersTest extends KeaSuite {
   test("can read big int from configuration.") {
     val bd = config.as[BigInt]("example.some-big-int")
     bd.toOption should be (Some(BigInt("1")))
+  }
+
+  test("can read some uuid.") {
+    val uuid = config.as[UUID]("example.some-uuid")
+    uuid.toOption should be (Some(UUID.fromString("9e0b6db4-3081-4d83-850b-76b7d73ea26c")))
   }
 
 }
