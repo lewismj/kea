@@ -11,8 +11,10 @@
 <a href="https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22kea-core_2.12%22">
 <img src="https://maven-badges.herokuapp.com/maven-central/com.waioeka/kea-core_2.12/badge.svg"/>
 </a>
+<a href="https://waffle.io/lewismj/kea">
+<img src="https://badge.waffle.io/lewismj/kea.svg?columns=In%20Progress,Done&style=flat-square">
+</a>
 </p>
-
 This library provides a type-safe (_validated_) way to query [Typelevel configuration](https://github.com/typesafehub/config).
 The goal is to provide as minimal a wrapper as necessary, avoiding the direct use of macros, compiler plugins or a large number of
 dependencies.
@@ -27,14 +29,6 @@ the requirement for the library to directly use macros.
 ```scala
 libraryDependencies += "com.waioeka" %% "kea-core" % "0.0.8"
 ```
-
-## Issues/Tasks 
-<p align=left>
-<a href="https://waffle.io/lewismj/kea">
-<img src="https://badge.waffle.io/lewismj/kea.svg?columns=In%20Progress,Done&style=flat-square">
-</a>
-</p>
-
 ## Example
 Suppose we have some configuration:
 ```
