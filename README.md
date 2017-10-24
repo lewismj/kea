@@ -16,7 +16,7 @@
 </a>
 </p>
 
-This library provides a type-safe (_validated_) way to query [Typelevel configuration](https://github.com/typesafehub/config).
+This library provides a type-safe (_validated_) way to query [Typesafe configuration](https://github.com/typesafehub/config).
 The goal is to provide as minimal a wrapper as necessary, avoiding the direct use of macros, compiler plugins or a large number of
 dependencies.
 
