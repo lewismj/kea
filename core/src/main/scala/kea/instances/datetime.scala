@@ -1,8 +1,9 @@
 package kea
 package instances
 
-import java.time.{LocalDate, LocalDateTime, ZonedDateTime}
+import java.time.{LocalDate, LocalDateTime, Period, ZonedDateTime}
 import java.time.format.DateTimeFormatter
+
 
 import com.typesafe.config.Config
 
@@ -18,5 +19,8 @@ trait DateTimeInstances {
 
   implicit val localDateTimeReader: ConfigReader[LocalDateTime] = (c: Config, p: String) =>
       validated(LocalDateTime.parse(c.getString(p)))
+
+  implicit val periodReader: ConfigReader[Period] = (c: Config, p: String) =>
+      validated(Period.parse(c.getString(p)))
 
 }

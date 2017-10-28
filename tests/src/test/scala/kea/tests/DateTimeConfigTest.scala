@@ -1,7 +1,7 @@
 package kea
 package tests
 
-import java.time.{LocalDate, LocalDateTime, ZonedDateTime}
+import java.time.{LocalDate, LocalDateTime, Period, ZonedDateTime}
 
 import com.typesafe.config.ConfigFactory
 import kea.implicits._
@@ -25,6 +25,11 @@ class DateTimeConfigTest extends KeaSuite {
   test("can read zoned date time configuration.") {
     val zdt = config.as[ZonedDateTime]("example.some-zoned-date-time")
     zdt.toOption should be (Some(ZonedDateTime.parse("2049-01-01T00:00:00.000Z")))
+  }
+
+  test("can read java.time Period from configuration.") {
+    val fd = config.as[Period]("example.some-period")
+    fd.toOption should be (Some(Period.parse("P5D")))
   }
 
 }

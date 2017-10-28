@@ -7,7 +7,6 @@ import com.typesafe.config.Config
 
 import scala.collection.JavaConverters._
 import scala.collection.generic.CanBuildFrom
-import scala.language.postfixOps
 import scala.language.higherKinds
 
 
@@ -32,5 +31,6 @@ trait CollectionInstances {
           Valid(build.result())
       }
     })
+
   }
 }

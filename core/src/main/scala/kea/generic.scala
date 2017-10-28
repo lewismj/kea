@@ -17,7 +17,6 @@ import kea.types._
 
 object generic {
 
-
   sealed trait Schema[A] {
     def from(c: Config, p: String): ValidatedConfig[A]
   }
@@ -44,11 +43,9 @@ object generic {
         mapper: FieldNameMapper = DefaultFieldNameMapper): Schema[FieldType[K, V] :: T] = {
 
       Schema.instance { (config, path) =>
-
         val fieldName = key.value.name
         val f = reader.value.get(config, path + "." + mapper.replace(fieldName)).map(f => field[K](f))
         (f |@| next.from(config, path)).map(_ :: _)
-
       }
     }
 
