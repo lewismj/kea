@@ -31,15 +31,7 @@ the requirement for the library to directly use macros.
 libraryDependencies += "com.waioeka" %% "kea-core" % "0.0.8"
 ```
 ## Example
-Suppose we have some configuration:
-```
-example {
-  foo {
-    some-string = "hello world"
-    some-int = 4
-  }
-}
-```
+
 We can specify the type of each configuration element, for example,
 ```scala
  import com.typesafe.config.{Config, ConfigFactory}
@@ -87,7 +79,7 @@ For example, given:
 ```
 Then `f` will accumulate two errors:
 ```scala
-Invalid( NonEmptyList (
+Invalid(NonEmptyList(
 com.typesafe.config.ConfigException$Missing: No configuration setting found for key '"first error"', 
 com.typesafe.config.ConfigException$Missing: No configuration setting found for key '"second error"'
 ))
