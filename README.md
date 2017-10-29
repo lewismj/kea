@@ -60,7 +60,7 @@ Then this can be read directly into the case class structure as follows:
 ```scala
     case class Foo(c: String, d: Int, e: String, f: Int)
     case class Bar(a: Foo, b: Int)
-    val result = config.as[Bar]("example.adt")
+    val result = config.as[Bar]("adt")
     // result: (Valid(Bar(Foo(hello, 1, world, 2), 12)))
 ```
 
