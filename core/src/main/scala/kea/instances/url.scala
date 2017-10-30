@@ -11,3 +11,5 @@ trait UrlInstances {
   implicit val uriReader: ConfigReader[URI] = (c: Config, p: String) => validated(new URI(c.getString(p)))
 
 }
+
+object UrlInstances extends UrlInstances

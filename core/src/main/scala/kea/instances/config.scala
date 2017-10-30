@@ -24,3 +24,5 @@ trait ConfigInstances {
       validated(c.getConfig(p))
 
 }
+
+object ConfigInstances extends ConfigInstances

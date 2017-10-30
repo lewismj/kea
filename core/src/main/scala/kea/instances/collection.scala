@@ -34,3 +34,5 @@ trait CollectionInstances {
 
   }
 }
+
+object CollectionInstances extends CollectionInstances

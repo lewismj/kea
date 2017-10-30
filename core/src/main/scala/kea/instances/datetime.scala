@@ -24,3 +24,5 @@ trait DateTimeInstances {
       validated(Period.parse(c.getString(p)))
 
 }
+
+object DateTimeInstances extends DateTimeInstances

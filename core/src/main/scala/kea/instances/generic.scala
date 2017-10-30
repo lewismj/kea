@@ -12,3 +12,5 @@ trait GenericInstances {
     = (config: Config, path: String) =>  s.value.from(config, path)
 
 }
+
+object GenericInstances extends GenericInstances

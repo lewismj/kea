@@ -64,22 +64,36 @@ lazy val publishSettings = Seq(
  developers := List(
   Developer(id="lewismj", name="Michael Lewis", email="lewismj@waioeka.com", url=url("https://www.waioeka.com"))
  )
-) 
+)
 
 lazy val keaSettings = buildSettings ++ commonSettings ++ scoverageSettings
 
 lazy val kea = project.in(file("."))
   .settings(moduleName := "root")
   .settings(noPublishSettings)
-  .aggregate(tests, core)
+  .aggregate(tests, core, yaml)
 
 lazy val core = project.in(file("core"))
   .settings(moduleName := "kea-core")
   .settings(keaSettings:_*)
   .settings(publishSettings:_*)
 
-lazy val tests = project.in(file("tests"))
+lazy val yamlSettings = Seq(
+  libraryDependencies ++= Seq (
+    "javax.json" % "javax.json-api" % "1.1",
+    "org.yaml" % "snakeyaml" % "1.19"
+  )
+)
+
+lazy val yaml = project.in(file("yaml"))
+  .settings(moduleName := "kea-yaml")
+  .settings(keaSettings:_*)
+  .settings(yamlSettings:_*)
+  .settings(publishSettings:_*)
   .dependsOn(core)
+
+lazy val tests = project.in(file("tests"))
+  .dependsOn(core, yaml)
   .settings(moduleName := "kea-tests")
   .settings(keaSettings:_*)
   .settings(noPublishSettings)
