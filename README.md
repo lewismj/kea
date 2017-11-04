@@ -110,3 +110,25 @@ The library itself implements `ConfigReader` instances for the following types:
 * __case classes__: support for algebraic data types.
 
 Together with collection types (e.g. `List`, `Vector`, etc.) and `Option` of the above.
+
+## Example
+
+Loading config from Consul, below have the contents of `application.conf` as the value for a single key.
+It would be possible to write a Consul wrapper that created a `Conf` object over a set of keys.
+However, most applications prefer the config in a single json or hocon document.
+
+```scala
+  val cfg =
+    """
+      |consul = "http://127.0.0.1:8500/v1/kv/config/dev?raw=true"
+    """.stripMargin
+    
+  val config = ConfigFactory.parseString(cfg)
+  
+  case class AppConfig(a: String, b: Boolean, c: Int)
+
+  val appConfig = config.as[URL]("consul").andThen(url => {
+    val consulConf = ConfigFactory.parseString(s"${Source.fromURL(url).mkString}")
+    consulConf.as[AppConfig]("example.bar")
+  })
+```
