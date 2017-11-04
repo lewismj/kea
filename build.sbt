@@ -1,8 +1,7 @@
 
 lazy val noPublishSettings = Seq(
-  publish := {},
-  publishLocal := {},
-  publishArtifact := false
+    skip in publish := true,
+    sources in doc := Seq.empty
 )
 
 lazy val commonScalacOptions = Seq(
