@@ -82,7 +82,7 @@ lazy val tests = project.in(file("tests"))
   .dependsOn(core)
   .settings(moduleName := "kea-tests")
   .settings(keaSettings:_*)
-  .settings(noPublishSettings)
+  .settings(noPublishSettings:_*)
   .settings(
     coverageEnabled := false,
     testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-oDF"),
