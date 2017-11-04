@@ -20,3 +20,5 @@ trait OptionInstances {
   }
 
 }
+
+object OptionInstances extends OptionInstances

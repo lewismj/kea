@@ -10,4 +10,5 @@ trait AllInstances
   with UrlInstances
   with GenericInstances
   with EnumerationInstances
+  with SourceInstances
 

@@ -18,3 +18,5 @@ trait EnumerationInstances {
       enum.values.find(_.toString == c.getString(p)).get.asInstanceOf[T#Value]
     })
 }
+
+object EnumerationInstances extends EnumerationInstances

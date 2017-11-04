@@ -1,8 +1,8 @@
 package kea
 
+
 import com.typesafe.config.Config
 import kea.types.ValidatedConfig
-
 
 /**
   * Config reader type class.
@@ -19,6 +19,17 @@ trait ConfigReader[A] {
     * @return a `ValidatedConfig[A]`
     */
   def get(config: Config, path: String): ValidatedConfig[A]
+}
+
+/**
+  * Used to support automatically loading a resource from
+  * a source such as URL, File, etc. Where the source is given
+  * in a top-level configuration object. See `Conf.from`.
+  *
+  * @tparam T the type of Source.
+  */
+trait ConfigFrom[T] {
+  def from(config: Conf, source: String): ValidatedConfig[Config]
 }
 
 /**
@@ -39,6 +50,28 @@ case class Conf(config: Config) {
     */
   def as[A](path: String)(implicit reader: ConfigReader[A]): ValidatedConfig[A]
     = reader.get(config,path)
+
+
+  /**
+    * Utility method for reading configuration indirectly via some source, for example,
+    *
+    * {{{
+    *    val cfg =
+    *  """
+    *    |consul = "http://127.0.0.1:8500/v1/kv/config/dev?raw=true"
+    *  """.stripMargin
+    *
+    * val config = ConfigFactory.parseString(cfg)
+    *
+    * case class AppConfig(a: String, b: Boolean, c: Int)
+    *
+    * val appConfig = config.from[URL,AppConfig]("consul","example.bar")
+    * }}}
+    */
+  def from[A,B](sourcePath: String, path: String)(implicit  source: ConfigFrom[A],
+                                                            reader: ConfigReader[B]): ValidatedConfig[B] =
+    source.from(this,sourcePath).andThen(cf => Conf(cf).as[B](path))
+
 }
 
 /**

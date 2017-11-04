@@ -45,5 +45,6 @@ trait PrimitiveInstances {
 
   implicit val uuidReader: ConfigReader[UUID] = (c: Config, p: String) => validated(UUID.fromString(c.getString(p)))
 
-
 }
+
+object PrimitiveInstances extends PrimitiveInstances

@@ -64,8 +64,8 @@ Then this can be read directly into the case class structure as follows:
     // result: (Valid(Bar(Foo(hello, 1, world, 2), 12)))
 ```
 
-Note, by convention, given a field name `abcDef` the configuration expected is `abc-def`. This
-is enforced at present, but could be parameterised in a future version.
+Note, by convention, given a field name `abcDef` the configuration expected is `abc-def`. 
+See, `FieldNameMapper`.
 
 Using a custom or generic configuration reader, any errors are accumulated as a non empty list of `Throwable`. 
 For example, given:
@@ -111,11 +111,16 @@ The library itself implements `ConfigReader` instances for the following types:
 
 Together with collection types (e.g. `List`, `Vector`, etc.) and `Option` of the above.
 
-## Example
+## Specifying a source for a configuration block (e.g. Consul).
 
-Loading config from Consul, below have the contents of `application.conf` as the value for a single key.
 It would be possible to write a Consul wrapper that created a `Conf` object over a set of keys.
-However, most applications prefer the config in a single json or hocon document.
+However, most applications prefer the config within a single Json or Hocon document. 
+
+In the example below the `from` function reads a `URL` from the configuration and sequentially
+validates the configuration sourced.
+ 
+The first parameter is the path of the URL within the top level config, the second parameter specifies the
+path to read within the configuration document.
 
 ```scala
   val cfg =
@@ -125,10 +130,29 @@ However, most applications prefer the config in a single json or hocon document.
     
   val config = ConfigFactory.parseString(cfg)
   
-  case class AppConfig(a: String, b: Boolean, c: Int)
-
-  val appConfig = config.as[URL]("consul").andThen(url => {
-    val consulConf = ConfigFactory.parseString(s"${Source.fromURL(url).mkString}")
-    consulConf.as[AppConfig]("example.bar")
-  })
+  case class Bar(a: String, b: Boolean, c: Int)
+  
+  val conf = config.from[URL,Bar]("consul","example.bar")
+  // Valid(AppConfig(hello world,true,1234))
 ```
+
+Sources can implement the `ConfigFrom` trait, for example the library supplies a source for URL,
+
+```scala
+  implicit def fromURL: ConfigFrom[URL] = (config: Conf, source: String) =>
+    config.as[URL](source).andThen(url => {
+      validated({
+        ConfigFactory.parseString(Source.fromURL(url).mkString)
+      })
+    })
+```
+
+With the `from` function just adding the subsequent lookup,
+
+```scala
+  def from[A,B](sourcePath: String, path: String)(implicit  source: ConfigFrom[A],
+                                                            reader: ConfigReader[B]): ValidatedConfig[B] =
+    source.from(this,sourcePath).andThen(cf => Conf(cf).as[B](path))
+```
+
+Ensuring we validate the type of the source and the underlying call to `Source`.

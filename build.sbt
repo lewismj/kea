@@ -64,7 +64,7 @@ lazy val publishSettings = Seq(
  developers := List(
   Developer(id="lewismj", name="Michael Lewis", email="lewismj@waioeka.com", url=url("https://www.waioeka.com"))
  )
-) 
+)
 
 lazy val keaSettings = buildSettings ++ commonSettings ++ scoverageSettings
 
