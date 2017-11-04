@@ -70,7 +70,7 @@ lazy val keaSettings = buildSettings ++ commonSettings ++ scoverageSettings
 
 lazy val kea = project.in(file("."))
   .settings(moduleName := "root")
-  .settings(noPublishSettings)
+  .settings(noPublishSettings:_*)
   .aggregate(tests, core)
 
 lazy val core = project.in(file("core"))
