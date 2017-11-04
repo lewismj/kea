@@ -28,7 +28,7 @@ the requirement for the library to directly use macros.
 
 ## Dependency Information
 ```scala
-libraryDependencies += "com.waioeka" %% "kea-core" % "0.0.8"
+libraryDependencies += "com.waioeka" %% "kea-core" % "0.0.9"
 ```
 ## Example
 
@@ -111,7 +111,7 @@ The library itself implements `ConfigReader` instances for the following types:
 
 Together with collection types (e.g. `List`, `Vector`, etc.) and `Option` of the above.
 
-## Specifying a source for a configuration block (e.g. Consul).
+## Specifying a source for a configuration block (e.g. Consul)
 
 It would be possible to write a Consul wrapper that created a `Conf` object over a set of keys.
 However, most applications prefer the config within a single Json or Hocon document. 
