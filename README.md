@@ -111,10 +111,7 @@ The library itself implements `ConfigReader` instances for the following types:
 
 Together with collection types (e.g. `List`, `Vector`, etc.) and `Option` of the above.
 
-## Specifying a source for a configuration block (e.g. Consul)
-
-It would be possible to write a Consul wrapper that created a `Conf` object over a set of keys.
-However, most applications prefer the config within a single Json or Hocon document. 
+## Specifying a source for a configuration block.
 
 In the example below the `from` function reads a `URL` from the configuration and sequentially
 validates the configuration sourced.
