@@ -1,12 +1,13 @@
 package kea
 
+
+
+import cats.implicits._
 import cats.data.Validated.Valid
 import com.typesafe.config.Config
 import shapeless.labelled.FieldType
 import shapeless._
 import labelled._
-import cats.syntax.cartesian._
-import kea.implicits._
 import kea.types._
 
 /**
@@ -45,7 +46,8 @@ object generic {
       Schema.instance { (config, path) =>
         val fieldName = key.value.name
         val f = reader.value.get(config, path + "." + mapper.replace(fieldName)).map(f => field[K](f))
-        (f |@| next.from(config, path)).map(_ :: _)
+   //     (f |@| next.from(config, path)).map(_ :: _)
+        (f,next.from(config, path)).mapN((x,y) => x :: y)
       }
     }
 

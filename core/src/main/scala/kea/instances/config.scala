@@ -15,7 +15,7 @@ trait ConfigInstances {
     * Define how to combine validation results.
     */
   implicit val semiGroup = new Semigroup[ThrowableNel] {
-    override def combine(x: ThrowableNel, y: ThrowableNel) = x.concat(y)
+    override def combine(x: ThrowableNel, y: ThrowableNel) = x.concatNel(y)
   }
 
 

@@ -20,11 +20,11 @@ class CoreReadersTest extends KeaSuite {
   case class Foo(s: String, i: Int, b: Boolean, d: Double, l: Long)
   object Foo {
     def apply(config: Config): ValidatedConfig[Foo] =
-      (config.as[String]("example.foo.some-string") |@|
-        config.as[Int]("example.foo.some-int") |@|
-        config.as[Boolean]("example.foo.some-boolean") |@|
-        config.as[Double]("example.foo.some-double") |@|
-        config.as[Long]("example.foo.some-long")).map(Foo.apply)
+      (config.as[String]("example.foo.some-string"),
+        config.as[Int]("example.foo.some-int"),
+        config.as[Boolean]("example.foo.some-boolean"),
+        config.as[Double]("example.foo.some-double"),
+        config.as[Long]("example.foo.some-long")).mapN(Foo.apply)
   }
 
 
@@ -40,11 +40,11 @@ class CoreReadersTest extends KeaSuite {
   }
 
   test("errors should accumulate.") {
-    val f = (config.as[String]("example.foo.some-string") |@|
-             config.as[Int]("first error") |@|
-             config.as[Boolean]("example.foo.some-boolean") |@|
-             config.as[Double]("second error") |@|
-             config.as[Long]("example.foo.some-long")).map(Foo.apply)
+    val f = (config.as[String]("example.foo.some-string"),
+             config.as[Int]("first error"),
+             config.as[Boolean]("example.foo.some-boolean"),
+             config.as[Double]("second error"),
+             config.as[Long]("example.foo.some-long")).mapN(Foo.apply)
     f.isInvalid should be (true)
   }
 

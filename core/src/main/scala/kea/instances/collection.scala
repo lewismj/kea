@@ -22,7 +22,8 @@ trait CollectionInstances {
         reader.get(elem, "dummy")
       }).toList
 
-      validations.sequenceU match {
+
+      validations.sequence match {
         case i@Invalid(_) => i
         case Valid(ys) =>
           val build = builder()

@@ -18,7 +18,8 @@ lazy val commonScalacOptions = Seq(
   "-Xfatal-warnings",
   "-Yno-adapted-args",
   "-Ywarn-dead-code",
-  "-Ywarn-value-discard")
+  "-Ywarn-value-discard",
+  "-Ypartial-unification")
 
 lazy val buildSettings = Seq(
   name := "kea",
@@ -35,8 +36,8 @@ lazy val scoverageSettings = Seq(
 lazy val commonSettings = Seq(
   scalacOptions ++= commonScalacOptions,
   libraryDependencies ++= Seq(
-    "com.chuusai" %% "shapeless" % "2.3.2",
-    "org.typelevel" %% "cats" % "0.9.0",
+    "com.chuusai" %% "shapeless" % "2.3.3",
+    "org.typelevel" %% "cats-core" % "1.0.1",
     "com.typesafe" % "config" % "1.3.2"
   ),
   fork in test := true

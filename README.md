@@ -70,11 +70,11 @@ See, `FieldNameMapper`.
 Using a custom or generic configuration reader, any errors are accumulated as a non empty list of `Throwable`. 
 For example, given:
 ```scala
-    val f = (config.as[String]("example.foo.some-string") |@|
-             config.as[Int]("first error") |@|
-             config.as[Boolean]("example.foo.some-boolean") |@|
-             config.as[Double]("second error") |@|
-             config.as[Long]("example.foo.some-long")).map(Foo.apply)
+    val f = (config.as[String]("example.foo.some-string"),
+             config.as[Int]("first error"),
+             config.as[Boolean]("example.foo.some-boolean"),
+             config.as[Double]("second error"),
+             config.as[Long]("example.foo.some-long")).mapN(Foo.apply)
     println(f)
 ```
 Then `f` will accumulate two errors:
