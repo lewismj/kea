@@ -8,7 +8,7 @@
 <a href="https://codecov.io/gh/lewismj/kea">
 <img src="https://codecov.io/gh/lewismj/kea/branch/master/graph/badge.svg" alt="Codecov"/>
 </a>
-<a href="https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22kea-core_2.12%22">
+<a href="https://search.maven.org/search?q=a:kea-core_2.12">
 <img src="https://maven-badges.herokuapp.com/maven-central/com.waioeka/kea-core_2.12/badge.svg"/>
 </a>
 <a href="https://waffle.io/lewismj/kea">
@@ -28,7 +28,7 @@ the requirement for the library to directly use macros.
 
 ## Dependency Information
 ```scala
-libraryDependencies += "com.waioeka" %% "kea-core" % "0.0.9"
+libraryDependencies += "com.waioeka" %% "kea-core" % "0.1.3"
 ```
 ## Example
 
