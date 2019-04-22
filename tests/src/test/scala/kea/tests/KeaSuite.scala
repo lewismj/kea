@@ -1,7 +1,7 @@
 package kea
 package tests
 
-import org.scalatest.prop.{Checkers, GeneratorDrivenPropertyChecks}
+
 import org.scalatest.{BeforeAndAfterAll, FunSuite, Matchers}
 
 /**
@@ -9,6 +9,4 @@ import org.scalatest.{BeforeAndAfterAll, FunSuite, Matchers}
   */
 trait  KeaSuite extends FunSuite
   with BeforeAndAfterAll
-  with Checkers
   with Matchers
-  with GeneratorDrivenPropertyChecks
