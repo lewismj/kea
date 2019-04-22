@@ -8,7 +8,7 @@
 <a href="https://codecov.io/gh/lewismj/kea">
 <img src="https://codecov.io/gh/lewismj/kea/branch/master/graph/badge.svg" alt="Codecov"/>
 </a>
-<a href="https://search.maven.org/search?q=a:kea-core_2.12">
+<a href="https://search.maven.org/artifact/com.waioeka/kea-core_2.12/0.1.3/jar">
 <img src="https://maven-badges.herokuapp.com/maven-central/com.waioeka/kea-core_2.12/badge.svg"/>
 </a>
 <a href="https://waffle.io/lewismj/kea">
