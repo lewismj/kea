@@ -11,9 +11,7 @@
 <a href="https://search.maven.org/artifact/com.waioeka/kea-core_2.12/0.1.3/jar">
 <img src="https://maven-badges.herokuapp.com/maven-central/com.waioeka/kea-core_2.12/badge.svg"/>
 </a>
-<a href="https://waffle.io/lewismj/kea">
-<img src="https://badge.waffle.io/lewismj/kea.svg?columns=In%20Progress,Done&style=flat-square">
-</a>
+<a href="https://typelevel.org/cats/"><img src="https://typelevel.org/cats/img/cats-badge-tiny.png" alt="Cats friendly" /></a>
 </p>
 
 This library provides a type-safe (_validated_) way to query [Typesafe configuration](https://github.com/typesafehub/config).
@@ -28,7 +26,7 @@ the requirement for the library to directly use macros.
 
 ## Dependency Information
 ```scala
-libraryDependencies += "com.waioeka" %% "kea-core" % "0.1.3"
+libraryDependencies += "com.waioeka" %% "kea-core" % "0.2.1"
 ```
 ## Example
 

@@ -6,7 +6,7 @@ import cats.implicits._
 import cats.data.Validated.{Invalid, Valid}
 import com.typesafe.config.Config
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 import scala.collection.Factory
 
 

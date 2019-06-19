@@ -13,7 +13,6 @@ lazy val commonScalacOptions = Seq(
   "-language:implicitConversions",
   "-unchecked",
   "-Xcheckinit",
-  "-Xfuture",
   "-Xlint",
   "-Xfatal-warnings",
   "-Ywarn-dead-code",
@@ -22,7 +21,7 @@ lazy val commonScalacOptions = Seq(
 lazy val buildSettings = Seq(
   name := "kea",
   organization in Global := "com.waioeka",
-  scalaVersion in Global := "2.13.0-M5"
+  scalaVersion in Global := "2.13.0"
 )
 
 lazy val scoverageSettings = Seq(
@@ -35,7 +34,7 @@ lazy val commonSettings = Seq(
   scalacOptions ++= commonScalacOptions,
   libraryDependencies ++= Seq(
     "com.chuusai" %% "shapeless" % "2.3.3",
-    "org.typelevel" %% "cats-core" % "1.6.0",
+    "org.typelevel" %% "cats-core" % "2.0.0-M4",
     "com.typesafe" % "config" % "1.3.3"
   ),
   fork in test := true
@@ -85,7 +84,7 @@ lazy val tests = project.in(file("tests"))
     coverageEnabled := false,
     testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-oDF"),
     libraryDependencies ++= Seq(
-      "org.scalatest"  %% "scalatest" % "3.0.7" % "test",
+      "org.scalatest"  %% "scalatest" % "3.0.8" % "test",
       "org.scalacheck" %% "scalacheck" % "1.14.0" % "test"
     )
   )
