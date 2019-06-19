@@ -54,7 +54,7 @@ lazy val publishSettings = Seq(
   homepage := Some(url("https://github.com/lewismj/kea")),
   scmInfo := Some(
     ScmInfo(
-      url("https://github.com/lewismj/cucmber"),
+      url("https://github.com/lewismj/kea"),
       "scm:git@github.com:lewismj/kea.git"
    )
  ),
