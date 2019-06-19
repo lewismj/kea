@@ -35,7 +35,7 @@ lazy val commonSettings = Seq(
   libraryDependencies ++= Seq(
     "com.chuusai" %% "shapeless" % "2.3.3",
     "org.typelevel" %% "cats-core" % "2.0.0-M4",
-    "com.typesafe" % "config" % "1.3.3"
+    "com.typesafe" % "config" % "1.3.4"
   ),
   fork in test := true
 )
