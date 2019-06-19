@@ -11,7 +11,6 @@
 <a href="https://search.maven.org/artifact/com.waioeka/kea-core_2.12/0.1.3/jar">
 <img src="https://maven-badges.herokuapp.com/maven-central/com.waioeka/kea-core_2.12/badge.svg"/>
 </a>
-<a href="https://typelevel.org/cats/"><img src="https://typelevel.org/cats/img/cats-badge-tiny.png" alt="Cats friendly" /></a>
 </p>
 
 This library provides a type-safe (_validated_) way to query [Typesafe configuration](https://github.com/typesafehub/config).
@@ -24,9 +23,13 @@ So, any errors in your configuration may be accumulated.
 [Shapeless](https://github.com/milessabin/shapeless) is used to read configuration into case classes, without 
 the requirement for the library to directly use macros.
 
+
+<a href="https://typelevel.org/cats/"><img src="https://typelevel.org/cats/img/cats-badge-tiny.png" alt="Cats friendly" /></a>
+
+
 ## Dependency Information
 ```scala
-libraryDependencies += "com.waioeka" %% "kea-core" % "0.2.1"
+libraryDependencies += "com.waioeka" %% "kea-core" % "0.2.0"
 ```
 ## Example
 
